@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SHKEENA DALIY</title>
+  <title>SKHEENA DAILY</title>
   
   <style>
-    /* Menghilangkan semua batas margin & padding bawaan browser */
+    /* 1. RESET DEFAULT BROWSER: Menghapus semua celah/padding bawaan */
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden; /* Mencegah double scrollbar pada core browser */
+      overflow: hidden; /* Mengunci scrollbar utama browser agar tidak double */
       background-color: #ffffff;
     }
 
-    /* Kontainer Utama pembungkus dipaksa memenuhi 100% dimensi layar aktif */
-    .fullscreen-container {
+    /* 2. KONTAINER UTAMA: Memaksa dimensi seukuran layar penuh browser */
+    .fullscreen-wrapper {
       position: relative;
       width: 100vw;
       height: 100vh;
@@ -25,8 +25,8 @@
       padding: 0;
     }
 
-    /* Iframe disetel menempati seluruh ruang kontainer tanpa border kaku */
-    .fullscreen-container iframe {
+    /* 3. STYLE IFRAME: Menghapus border kaku dan mengisi 100% ruang */
+    .fullscreen-wrapper iframe {
       position: absolute;
       top: 0;
       left: 0;
@@ -37,7 +37,7 @@
       z-index: 2;
     }
 
-    /* Animasi Loading Minimalis (Aksen Sage Green bawaan Anda) */
+    /* 4. LAYAR LOADING: Menunggu hingga server Google selesai mengirim data */
     .loading-screen {
       position: absolute;
       top: 0;
@@ -50,54 +50,56 @@
       justify-content: center;
       align-items: center;
       z-index: 1;
-      gap: 12px;
+      gap: 14px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
+    /* Spinner Animasi Berputar Bertema Sage Green */
     .spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid #E2E8F0;
-      border-top: 3px solid #8A9A5B; /* Sage Green */
+      width: 40px;
+      height: 40px;
+      border: 3.5px solid #E2E8F0;
+      border-top: 3.5px solid #8A9A5B; /* Warna Sage Green Kebanggaan Anda */
       border-radius: 50%;
-      animation: putar 0.7s linear infinite;
+      animation: putarSkala 0.75s linear infinite;
     }
 
     .loading-text {
-      font-size: 0.82rem;
-      color: #718096;
-      font-weight: 500;
-      letter-spacing: 0.3px;
+      font-size: 0.85rem;
+      color: #4A5568;
+      font-weight: 600;
+      letter-spacing: 0.4px;
     }
 
-    @keyframes putar {
+    @keyframes putarSkala {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <div class="fullscreen-container">
+
+  <div class="fullscreen-wrapper">
     
     <div class="loading-screen">
       <div class="spinner"></div>
-      <div class="loading-text">Sinkronisasi Halaman</div>
+      <div class="loading-text">Menghubungkan Halaman</div>
     </div>
     
     <iframe 
       src="https://script.google.com/macros/s/AKfycbwdSgm1oT9KoxyqV5a-jjRjFH5zT8HPSd6I07ftKivyX8emAuCxBST2SGE7vcb-eF58Zg/exec"
       allowfullscreen="true"
-      onload="selesaiMemuat()">
+      onload="hilangkanLoading()">
     </iframe>
 
   </div>
 
   <script>
-    // Fungsi otomatis menghilangkan efek loading pasca server Google Apps Script siap
-    function selesaiMemuat() {
+    // Fungsi pintar pendeteksi loading selesai
+    function hilangkanLoading() {
       const loader = document.querySelector('.loading-screen');
       if (loader) {
-        loader.style.transition = 'opacity 0.3s ease';
+        loader.style.transition = 'opacity 0.3s ease-out';
         loader.style.opacity = '0';
         setTimeout(() => {
           loader.style.display = 'none';
